@@ -52,6 +52,21 @@ class ArgonautSpec extends FlatSpec with Matchers {
   }
 
 
+
+  "it" should "load a JSON file with Source and Argonaut" in {
+    val source = io.Source.fromFile("src/test/resources/argonaut--1.json")
+
+    try {
+      val input = source.getLines.mkString("\n")
+      decodeObject2(input) match {
+        case Some(TestObject2(_, key2)) => key2 shouldEqual 100
+      }
+    }
+    finally source.close
+  }
+
+
+
 //  // https://stackoverflow.com/questions/40751321/argonaut-decoding-a-polymorphic-array/40753319#40753319
 //  "Argonaut" should "parse an array who contains different type of elements" in {
 //    val input = """[1, "A"]"""
