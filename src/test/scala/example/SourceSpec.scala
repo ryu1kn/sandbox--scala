@@ -5,7 +5,7 @@ import org.scalatest._
 class SourceSpec extends FlatSpec with Matchers {
 
   "Source.fromFile" should "read a file" in {
-    val path = "src/test/resources/file-reader--1.txt"
+    val path = "src/test/resources/source--1.txt"
     readFile(path) shouldEqual "Hello\nWorld"
   }
 
