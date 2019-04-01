@@ -1,6 +1,7 @@
 package io.ryuichi
 
-import org.scalatest._
+import org.scalatest.{FlatSpec, Matchers}
+
 import scala._
 
 class SourceSpec extends FlatSpec with Matchers {

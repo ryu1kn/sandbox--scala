@@ -1,8 +1,10 @@
 package io.ryuichi
 
-import argonaut._, Argonaut._
-import scala._
+import argonaut.Argonaut._
+import argonaut._
 import org.scalatest.{FlatSpec, Matchers}
+
+import scala._
 
 class ArgonautSpec extends FlatSpec with Matchers {
 
@@ -10,20 +12,14 @@ class ArgonautSpec extends FlatSpec with Matchers {
 
   implicit def TestObjectDecodeJson: DecodeJson[TestObject1] = jdecode1L(TestObject1.apply)("key")
 
-  def decodeObject1(inputJson: String) = inputJson.decodeOption[TestObject1]
+  private def decodeObject1(inputJson: String) = inputJson.decodeOption[TestObject1]
 
   "Argonaut" should "parse JSON object with single key" in {
-    val input = """{"key":"value"}"""
-    decodeObject1(input) match {
-      case Some(TestObject1(key)) => key shouldEqual "value"
-    }
+    decodeObject1("""{"key":"value"}""") shouldEqual Some(TestObject1("value"))
   }
 
   "Argonaut" should "ignores the key the result object does not mention" in {
-    val input = """{"key":"value","unknownKey":"unknownValue"}"""
-    decodeObject1(input) match {
-      case Some(TestObject1(key)) => key shouldEqual "value"
-    }
+    decodeObject1("""{"key":"value","unknownKey":"unknownValue"}""") shouldEqual Some(TestObject1("value"))
   }
 
 
@@ -32,24 +28,20 @@ class ArgonautSpec extends FlatSpec with Matchers {
 
   implicit def TestObject2DecodeJson: DecodeJson[TestObject2] = jdecode2L(TestObject2.apply)("key1", "key2")
 
-  def decodeObject2(inputJson: String) = inputJson.decodeOption[TestObject2]
+  private def decodeObject2(inputJson: String) = inputJson.decodeOption[TestObject2]
 
   "Argonaut" should "parse JSON object with multiple keys" in {
     val input = """{"key1":"value1","key2":2}"""
-    decodeObject2(input) match {
-      case Some(TestObject2(_, key2)) => key2 shouldEqual 2
-    }
+    decodeObject2(input) shouldEqual Some(TestObject2("value1", 2))
   }
 
 
 
-  def decodeObjectList1(inputJson: String) = inputJson.decodeOption[List[TestObject1]]
+  private def decodeObjectList1(inputJson: String) = inputJson.decodeOption[List[TestObject1]]
 
   "Argonaut" should "automatically parse an array of the same object" in {
     val input = """[{"key":"value"}]"""
-    decodeObjectList1(input) match {
-      case Some(List(TestObject1(key))) => key shouldEqual "value"
-    }
+    decodeObjectList1(input) shouldEqual Some(List(TestObject1("value")))
   }
 
 
@@ -59,9 +51,7 @@ class ArgonautSpec extends FlatSpec with Matchers {
 
     try {
       val input = source.getLines.mkString("\n")
-      decodeObject2(input) match {
-        case Some(TestObject2(_, key2)) => key2 shouldEqual 100
-      }
+      decodeObject2(input) shouldEqual Some(TestObject2("KEY_1", 100))
     }
     finally source.close
   }
