@@ -1,15 +1,14 @@
-import Dependencies._
 
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
-      organization := "com.example",
-      scalaVersion := "2.12.3",
+      organization := "io.ryuichi",
+      scalaVersion := "2.12.8",
       version      := "0.1.0-SNAPSHOT"
     )),
     name := "ScalaSandbox",
     libraryDependencies ++= Seq(
-      argonaut % Compile,
-      scalaTest % Test
+      "io.argonaut" %% "argonaut" % "6.2" % Compile,
+      "org.scalatest" %% "scalatest" % "3.0.3" % Test
     )
   )

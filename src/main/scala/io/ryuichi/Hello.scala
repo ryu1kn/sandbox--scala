@@ -1,4 +1,4 @@
-package example
+package io.ryuichi
 
 object Hello extends Greeting with App {
   println(greeting)

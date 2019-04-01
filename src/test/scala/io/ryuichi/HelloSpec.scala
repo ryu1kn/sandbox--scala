@@ -1,4 +1,4 @@
-package example
+package io.ryuichi
 
 import org.scalatest._
 

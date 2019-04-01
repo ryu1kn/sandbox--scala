@@ -1,6 +1,7 @@
-package example
+package io.ryuichi
 
 import argonaut._, Argonaut._
+import scala._
 import org.scalatest.{FlatSpec, Matchers}
 
 class ArgonautSpec extends FlatSpec with Matchers {
@@ -71,5 +72,4 @@ class ArgonautSpec extends FlatSpec with Matchers {
 //  "Argonaut" should "parse an array who contains different type of elements" in {
 //    val input = """[1, "A"]"""
 //  }
-
 }
