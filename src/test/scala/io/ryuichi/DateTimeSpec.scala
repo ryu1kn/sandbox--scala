@@ -2,9 +2,9 @@ package io.ryuichi
 
 import java.text.SimpleDateFormat
 
-import org.scalatest.{Matchers, WordSpec}
+import io.ryuichi.helper.Specification
 
-class DateTimeSpec extends WordSpec with Matchers {
+class DateTimeSpec extends Specification {
   "Date" should {
     val formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     import formatter.parse
