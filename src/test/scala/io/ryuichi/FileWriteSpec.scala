@@ -48,5 +48,18 @@ class FileWriteSpec extends Specification {
     }
   }
 
+  "Stream" should {
+    val fileName = "__test-with-scala-stream.txt"
+    val stream = Source.fromString(contents).toStream
+    val outputStream = new BufferedOutputStream(new FileOutputStream(fileName))
+
+    "write to a file" in {
+      try stream.map(_.toUpper).foreach(outputStream.write(_))
+      finally outputStream.close()
+
+      readFile(fileName) shouldEqual contents.toUpperCase
+    }
+  }
+
   def readFile(file: String): String = Source.fromFile(file).mkString
 }
