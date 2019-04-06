@@ -61,5 +61,23 @@ class FileWriteSpec extends Specification {
     }
   }
 
+  "Stream - Control flow and use separate buffer to hold data" should {
+    val fileName = "__test-with-scala-stream-2.txt"
+    val inputStream = new ByteArrayInputStream(contents.getBytes)
+    val outputStream = new BufferedOutputStream(new FileOutputStream(fileName))
+
+    "write to a file" in {
+      val bytes = new Array[Byte](1024)
+
+      Stream
+        .continually(inputStream.read(bytes))
+        .takeWhile(-1 !=)
+        .foreach(length => outputStream.write(bytes, 0, length))
+      outputStream.close()
+
+      readFile(fileName) shouldEqual contents.toUpperCase
+    }
+  }
+
   def readFile(file: String): String = Source.fromFile(file).mkString
 }
