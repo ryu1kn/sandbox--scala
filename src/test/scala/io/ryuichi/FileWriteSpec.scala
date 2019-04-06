@@ -7,10 +7,10 @@ import io.ryuichi.helper.Specification
 import scala.io.Source
 
 class FileWriteSpec extends Specification {
+  val contents = "Hello, World"
 
   "PrintWriter" should {
     val fileName = "__test-with-printwriter.txt"
-    val contents = "Hello, World"
 
     "Write to a file" in {
       val pw = new PrintWriter(new File(fileName))
@@ -23,13 +23,26 @@ class FileWriteSpec extends Specification {
 
   "FileWriter" should {
     val fileName = "__test-with-filewriter.txt"
-    val contents = "Hello, World"
 
     "Write to a file" in {
       val file = new File(fileName)
       val bw = new BufferedWriter(new FileWriter(file))
       bw.write(contents)
       bw.close
+
+      readFile(fileName) shouldEqual contents
+    }
+  }
+
+  "Input/OutputStream" should {
+    val fileName = "__test-with-fileoutputstream.txt"
+
+    // convert Stream[Char] -> to InputStream? instead of using ByteArrayInputStream?
+    val inputStream = new ByteArrayInputStream(contents.getBytes)
+    val outputStream = new FileOutputStream(fileName)
+
+    "write to a file" in {
+      inputStream.transferTo(outputStream)
 
       readFile(fileName) shouldEqual contents
     }
