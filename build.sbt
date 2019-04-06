@@ -10,5 +10,8 @@ lazy val root = (project in file(".")).
     libraryDependencies ++= Seq(
       "io.argonaut" %% "argonaut" % "6.2.3" % Compile,
       "org.scalatest" %% "scalatest" % "3.0.5" % Test
-    )
+    ) ++ Seq(
+      "io.chrisdavenport" %% "cormorant-core",
+      "io.chrisdavenport" %% "cormorant-generic"
+    ).map(_ % "0.2.0-M5" % Compile)
   )
