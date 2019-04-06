@@ -9,9 +9,13 @@ lazy val root = (project in file(".")).
     name := "sandbox--scala",
     libraryDependencies ++= Seq(
       "io.argonaut" %% "argonaut" % "6.2.3" % Compile,
+      "org.typelevel" %% "cats-core" % "1.6.0" % Compile,
       "org.scalatest" %% "scalatest" % "3.0.5" % Test
     ) ++ Seq(
       "io.chrisdavenport" %% "cormorant-core",
-      "io.chrisdavenport" %% "cormorant-generic"
+      "io.chrisdavenport" %% "cormorant-generic",
+      "io.chrisdavenport" %% "cormorant-parser"
     ).map(_ % "0.2.0-M5" % Compile)
   )
+
+scalacOptions += "-Ypartial-unification"
